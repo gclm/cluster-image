@@ -1,0 +1,8 @@
+FROM scratch
+
+ENV DOMAIN=${DOMAIN:-}
+ENV BACKEND_NAMESPACE=${BACKEND_NAMESPACE:-"objectstorage-system"}
+
+COPY . .
+
+CMD ["bash entrypoint.sh"]
