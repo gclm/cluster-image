@@ -39,7 +39,7 @@ Sealos cluster image，也称为集群镜像，是 Sealos 工具的一个创新�
 
 Sealos 在 dockerhub 中的镜像使用 `github action` 自动构建，社区用户可以通过创建 github ISSUE 来触发构建任务，在ISSUE中通过支持的指令结合参数构建需要的镜像和版本，版本参数请参考应用官方网站、helm 仓库或 github release 页面。
 
-已贡献的镜像可直接点击跳转 Github ISSUE 进行新版本构建: [ :arrow_forward: ] [点击创建ISSUE](https://github.com/labring/cluster-image/issues/new?assignees=&labels=&template=autobuild-apps.md&title=【Auto-build】helm)。
+已贡献的镜像可直接点击跳转 Github ISSUE 进行新版本构建: [ :arrow_forward: ] [点击创建ISSUE](https://github.com/gclm/cluster-image/issues/new?assignees=&labels=&template=autobuild-apps.md&title=【Auto-build】helm)。
 
 以构建新的nginx集群镜像为例，由于社区已在`application`目录贡献了 nginx 构建脚本的实现，只需在ISSUE里搜索标题`【Auto-build】nginx`，在评论框输入以下指令，结合镜像名称（固定）和镜像版本（与官方一致），即可构建出新版本的nginx集群镜像，构建完成后会自动上传至DockerHub。
 
