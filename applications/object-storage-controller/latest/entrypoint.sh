@@ -501,7 +501,7 @@ spec:
               value: "300"
             - name: MinioBucketDetectionCycleSeconds
               value: "300"
-          image: docker.io/nowinkey/objectstorage-controller:v1.0.1
+          image: ghcr.io/gclm/sealos-objectstorage-controller:latest
           imagePullPolicy: Always
           livenessProbe:
             httpGet:
@@ -567,7 +567,7 @@ spec:
    spec:
      containers:
        - name: object-storage-frontend
-         image: zzfc/sealos-objectstorage:v1.0.2
+         image: ghcr.io/gclm/sealos-objectstorage-frontend:latest
          ports:
            - containerPort: 3000
              protocol: TCP

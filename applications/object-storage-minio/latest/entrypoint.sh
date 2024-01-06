@@ -7,8 +7,6 @@ if [[ -z "${DOMAIN}" ]]; then
 fi
 
 MINIO_EXTERNAL_ENDPOINT="https://objectstorageapi.${DOMAIN}"
-CONSOLE_ACCESS_KEY=$(echo -n "${MINIO_ADMIN_USER}" | base64 -w 0)
-CONSOLE_SECRET_KEY=$(echo -n "${MINIO_ADMIN_PASSWORD}" | base64 -w 0)
 
 cat <<EOF | kubectl apply -f -
 apiVersion: v1
@@ -25,6 +23,8 @@ export MINIO_BROWSER=\"on\"
 export MINIO_ROOT_USER=\"${MINIO_ROOT_USER}\"
 export MINIO_ROOT_PASSWORD=\"${MINIO_ROOT_PASSWORD}\""
 
+CONSOLE_ACCESS_KEY=$(echo -n "${MINIO_ROOT_USER}" | base64 -w 0)
+CONSOLE_SECRET_KEY=$(echo -n "${MINIO_ROOT_PASSWORD}" | base64 -w 0)
 ENCODED_CONFIG_ENV=$(echo -n "$CONFIG_ENV" | base64 -w 0)
 
 if kubectl get secret object-storage-env-configuration -n ${BACKEND_NAMESPACE} 2>&1 | grep -q "not found"; then
@@ -240,7 +240,7 @@ kubectl wait -l statefulset.kubernetes.io/pod-name=object-storage-pool-0-1 --for
 kubectl wait -l statefulset.kubernetes.io/pod-name=object-storage-pool-0-2 --for=condition=ready pod -n ${BACKEND_NAMESPACE} --timeout=-1s
 kubectl wait -l statefulset.kubernetes.io/pod-name=object-storage-pool-0-3 --for=condition=ready pod -n ${BACKEND_NAMESPACE} --timeout=-1s
 
-while mc alias set objectstorage ${MINIO_EXTERNAL_ENDPOINT} ${MINIO_ADMIN_USER} ${MINIO_ADMIN_PASSWORD} 2>&1 | grep -q "Unable to initialize new alias from the provided credentials."; do
+while mc alias set objectstorage ${MINIO_EXTERNAL_ENDPOINT} ${MINIO_ROOT_USER} ${MINIO_ROOT_PASSWORD} 2>&1 | grep -q "Unable to initialize new alias from the provided credentials."; do
   sleep 1
 done
 
