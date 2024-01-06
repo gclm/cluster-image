@@ -2,6 +2,7 @@ FROM scratch
 
 ENV NAME=${NAME:-"minio-operator"}
 ENV NAMESPACE=${NAMESPACE:-"minio-system"}
+ENV GITHUB_PROXY=${GITHUB_PROXY:-"https://mirror.ghproxy.com"}
 
 COPY . .
 

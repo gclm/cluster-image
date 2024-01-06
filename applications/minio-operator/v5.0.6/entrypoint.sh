@@ -6,7 +6,7 @@ ARCHIVE="operator-5.0.6.tgz"
 
 if ! helm -n $NAMESPACE status $NAME &> /dev/null; then
     if [ ! -f $ARCHIVE ]; then
-        wget $URL -O $ARCHIVE
+        wget $GITHUB_PROXY/$URL -O $ARCHIVE
     fi
 
     helm install $NAME $ARCHIVE --namespace $NAMESPACE --create-namespace
