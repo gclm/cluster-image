@@ -40,11 +40,7 @@ The command removes all the resource associated with the installtion.
 
 ## Build cluster image
 
-Get prometheus-operator release tag：
-
-https://github.com/prometheus-operator/prometheus-operator/releases
-
-Create new github issues and comments, or create comments within [existing issues](https://github.com/labring-actions/cluster-image/issues/36).
+Get prometheus-operator [release tag](https://github.com/prometheus-operator/prometheus-operator/releases), and create new github issues and comments, or create comments within [existing issues](https://github.com/labring-actions/cluster-image/issues/36).
 
 The sample comment content is as follows：
 

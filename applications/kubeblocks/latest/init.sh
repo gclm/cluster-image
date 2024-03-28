@@ -20,13 +20,19 @@ fi
 mkdir charts
 
 repo_url="https://github.com/apecloud/helm-charts/releases/download"
-charts=("kubeblocks" "apecloud-mysql" "mongodb" "postgresql" "redis" "kafka")
+charts=("kubeblocks")
 for chart in "${charts[@]}"; do
   chart_version=${VERSION#v}
-  if [[ "$chart" != "kubeblocks" ]]; then
-    chart_version=$(cat charts/kubeblocks/templates/addons/$chart-addon.yaml | (grep "\"version\"" || true) | awk '{print $2}'| sed 's/"//g')
-  fi
   helm fetch -d charts --untar "$repo_url"/"${chart}"-"${chart_version}"/"${chart}"-"${chart_version}".tgz
+  if [[ "$chart" == "kubeblocks" && "$VERSION" != "v0.5."* && "$VERSION" != "v0.6."*  && "$VERSION" != "v0.7."*  ]]; then
+    kubeblocks_crds_file="kubeblocks_crds.yaml"
+    wget https://github.com/apecloud/kubeblocks/releases/download/${VERSION}/${kubeblocks_crds_file} -O ${kubeblocks_crds_file}
+    kubeblocks_crds_dir="charts/${chart}/crds"
+    mkdir -p ${kubeblocks_crds_dir}
+    if [[ -f "${kubeblocks_crds_file}" ]]; then
+      mv ${kubeblocks_crds_file} ${kubeblocks_crds_dir}
+    fi
+  fi
   rm -rf charts/"${chart}"-"${chart_version}".tgz
 done
 
